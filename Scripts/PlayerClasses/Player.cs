@@ -100,7 +100,7 @@ namespace platformer.Scripts.PlayerClasses
                     
                     if (Keyboard.GetState().IsKeyDown(input.Toggle))
                     {
-                        if (!pressedThisFrame)
+                        if (false)
                         {
                             if (isCollsionActive)
                             {
