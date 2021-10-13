@@ -1,0 +1,4 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/hakan/source/repos/platformer/Content/box.png","C:/Users/hakan/source/repos/platformer/Content/bin/Windows/box.xnb","TextureProcessor","Texture2DContent",99,1109,0,3165056
+"C:/Users/hakan/source/repos/platformer/Content/pice.png","C:/Users/hakan/source/repos/platformer/Content/bin/Windows/pice.xnb","TextureProcessor","Texture2DContent",106,149,0,0669584
+"C:/Users/hakan/source/repos/platformer/Content/target.png","C:/Users/hakan/source/repos/platformer/Content/bin/Windows/target.xnb","TextureProcessor","Texture2DContent",3395,32485,0,4834822
