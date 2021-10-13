@@ -6,7 +6,7 @@ using platformer.Scripts.SpriteClasses;
 using platformer.Scripts.PlayerClasses;
 using platformer.Scripts.InputWrapperClass;
 using System.Diagnostics;
-
+using fpsCounter;
 
 
 namespace platformer
@@ -24,7 +24,8 @@ namespace platformer
         private List<Sprite> _sprites;
         private List<CollisionSprite> _collisionSprites;
         private Rectangle rect = new Rectangle(0, 0, 1920, 1080);
-        
+        private SimpleFps fps = new SimpleFps();
+        public static bool Debugging = true;
 
         public Game1()
         {
@@ -48,21 +49,22 @@ namespace platformer
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             var test = Content.Load<Texture2D>("pice");
-            var box = Content.Load<Texture2D>("box");
+            var box = Content.Load<Texture2D>("Sprite-0001");
 
             _players = new List<Player>()
             {
-                new Player(test, new Vector2(4, 4)) {input = new InputWapper() {Up = Keys.W, Down = Keys.S, Right = Keys.D, Left = Keys.A, Toggle = Keys.Enter}, position = new Vector2(100, 100), speed = 7.5f, color = new Color(255, 0, 0, 100 ), isCollsionActive = true}
+                new Player(test, new Vector2(4, 4)) {input = new InputWapper() {Up = Keys.W, Down = Keys.S, Right = Keys.D, Left = Keys.A, Toggle = Keys.Enter}, position = new Vector2(100, 50), speed = 13, color = new Color(255, 0, 0), isCollsionActive = true}
                  
             };
 
             _collisionSprites = new List<CollisionSprite>()
             {
-                new CollisionSprite(box, new Vector2(16, 16))
+                new CollisionSprite(box, new Vector2(8, 8))
                 {
                     isCollsionActive = true,
-                    position = new Vector2(50, 50),
-
+                    position = new Vector2(100, 100),
+ 
+                    
                 }
             };
 
@@ -119,6 +121,7 @@ namespace platformer
             spriteBatch.Draw(renderTarget, rect, Color.White);
             spriteBatch.End();
             // TODO: Add your drawing code here
+
 
             base.Draw(gameTime);
         }

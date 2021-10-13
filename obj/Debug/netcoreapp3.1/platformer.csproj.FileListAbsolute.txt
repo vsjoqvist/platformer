@@ -37,3 +37,4 @@ C:\Users\hakan\source\repos\platformer\obj\Debug\netcoreapp3.1\platformer.pdb
 C:\Users\hakan\source\repos\platformer\obj\Debug\netcoreapp3.1\platformer.genruntimeconfig.cache
 C:\Users\hakan\source\repos\platformer\bin\Debug\netcoreapp3.1\Content\target.xnb
 C:\Users\hakan\source\repos\platformer\bin\Debug\netcoreapp3.1\Content\box.xnb
+C:\Users\hakan\source\repos\platformer\bin\Debug\netcoreapp3.1\Content\Sprite-0001.xnb

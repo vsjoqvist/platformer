@@ -15,6 +15,9 @@ namespace platformer.Scripts.PlayerClasses
         public InputWapper input;
         public float speed = 1;
         bool pressedThisFrame = false;
+        private Vector2 gravity = new Vector2(0, 1);
+        public float gravityScale = 3;
+        public bool ignoreGravity = false;
 
         public Player(Texture2D _texture, Vector2 _collisionBoxSize)
         {
@@ -29,46 +32,23 @@ namespace platformer.Scripts.PlayerClasses
         {
             GetNewVelocity();
 
-            if (isCollsionActive)
+            
+            if (!ignoreGravity)
             {
-                foreach (var sprite in collisionSprites)
-                {
-                    if (sprite == this)
-                        continue;
+                velocity += (gravity * gravityScale) * Game1.deltaTime;
 
-                    if (this.velocity.X >= 0 && this.IsTouchingLeft(sprite))
-                    {
-                        this.velocity.X = 0;
-                        this.position.X = sprite.CollisonBox.Left - this.collisionBoxSize.X;
-     
-                    }
-                    if (this.velocity.X <= 0 & this.IsTouchingRight(sprite))
-                    {
-                        this.velocity.X = 0;
-                        this.position.X = sprite.CollisonBox.Right;
-
-                    }
-                    if (this.velocity.Y >= 0 && this.IsTouchingTop(sprite))
-                    {
-                        this.velocity.Y = 0;
-                        this.position.Y = sprite.CollisonBox.Top - this.collisionBoxSize.Y;
-   
-                    }
-                    if (this.velocity.Y <= 0 && this.IsTouchingBottom(sprite))
-                    {
-                        this.velocity.Y = 0;
-                        this.position.Y = sprite.CollisonBox.Bottom;
-                 
-                    }
-
-
-
-                }
+               
             }
+            
 
+            collide();
             position += velocity;
-
-            velocity = Vector2.Zero;
+            velocity.X = 0;
+            if (ignoreGravity)
+            {
+                velocity.Y = 0;
+            }
+            
 
             void GetNewVelocity()
             {
@@ -100,18 +80,30 @@ namespace platformer.Scripts.PlayerClasses
                     
                     if (Keyboard.GetState().IsKeyDown(input.Toggle))
                     {
-                        if (false)
+                        if (!pressedThisFrame)
                         {
+                            if (ignoreGravity)
+                            {
+                                ignoreGravity = false;
+                            }
+                            else
+                            {
+                                ignoreGravity = true;
+                            }
+
                             if (isCollsionActive)
                             {
                                 isCollsionActive = false;
+                                color.A = 100;
                             }
                             else
                             {
                                 isCollsionActive = true;
+                                color.A = 255;
                             }
 
                             pressedThisFrame = true;
+                            Debug.WriteLine(isCollsionActive);
                         }
                     }
                     else
@@ -119,6 +111,62 @@ namespace platformer.Scripts.PlayerClasses
                         pressedThisFrame = false;
                     }
 
+                }
+            }
+
+            void collide()
+            {
+                if (isCollsionActive)
+                {
+                    foreach (var sprite in collisionSprites)
+                    {
+                        if (sprite == this)
+                            continue;
+
+                        if (this.velocity.X >= 0 && this.IsTouchingLeft(sprite))
+                        {
+                            this.velocity.X = 0;
+                            this.position.X = sprite.CollisonBox.Left - this.collisionBoxSize.X;
+                            if (Game1.Debugging)
+                            {
+                                Debug.WriteLine("colluided right");
+                            }
+
+                        }
+                        if (this.velocity.X <= 0 & this.IsTouchingRight(sprite))
+                        {
+                            this.velocity.X = 0;
+                            this.position.X = sprite.CollisonBox.Right;
+                            if (Game1.Debugging)
+                            {
+                                Debug.WriteLine("colluided left");
+                            }
+
+                        }
+                        if (this.velocity.Y >= 0 && this.IsTouchingTop(sprite))
+                        {
+                            this.velocity.Y = 0;
+                            this.position.Y = sprite.CollisonBox.Top - this.collisionBoxSize.Y;
+                            if (Game1.Debugging)
+                            {
+                                Debug.WriteLine("colluided down");
+                            }
+
+                        }
+                        if (this.velocity.Y <= 0 && this.IsTouchingBottom(sprite))
+                        {
+                            this.velocity.Y = 0;
+                            this.position.Y = sprite.CollisonBox.Bottom;
+                            if (Game1.Debugging)
+                            {
+                                Debug.WriteLine("colluided up");
+                            }
+
+                        }
+
+
+
+                    }
                 }
             }
 
