@@ -52,7 +52,7 @@ namespace platformer
 
             _players = new List<Player>()
             {
-                new Player(test, new Vector2(4, 4)) {input = new InputWapper() {Up = Keys.W, Down = Keys.S, Right = Keys.D, Left = Keys.A, Toggle = Keys.Enter}, position = new Vector2(100, 100), speed = 7.5f}
+                new Player(test, new Vector2(4, 4)) {input = new InputWapper() {Up = Keys.W, Down = Keys.S, Right = Keys.D, Left = Keys.A, Toggle = Keys.Enter}, position = new Vector2(100, 100), speed = 7.5f, color = new Color(255, 0, 0, 100 ), isCollsionActive = true}
                  
             };
 
