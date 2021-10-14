@@ -19,12 +19,13 @@ namespace platformer.Scripts.PlayerClasses
         public float gravityScale = 3;
         public bool ignoreGravity = false;
 
-        public Player(Texture2D _texture, Vector2 _collisionBoxSize)
+        public Player(Texture2D _texture, int _collisionBoxWidth, int _collisionBoxHeight)
         {
             texture = _texture;
             origin = scale / 2;
             rectangle = new Rectangle(0, 0, texture.Width, texture.Height);
-            collisionBoxSize = _collisionBoxSize;
+            collisionBoxWidth = _collisionBoxWidth;
+            collisionBoxHeight = _collisionBoxHeight;
             velocity = Vector2.Zero;
         }
 
@@ -123,17 +124,17 @@ namespace platformer.Scripts.PlayerClasses
                         if (sprite == this)
                             continue;
 
-                        if (this.velocity.X >= 0 && this.IsTouchingLeft(sprite))
+                        if (this.velocity.X > 0 && this.IsTouchingLeft(sprite))
                         {
                             this.velocity.X = 0;
-                            this.position.X = sprite.CollisonBox.Left - this.collisionBoxSize.X;
+                            this.position.X = sprite.CollisonBox.Left - this.collisionBoxWidth;
                             if (Game1.Debugging)
                             {
                                 Debug.WriteLine("colluided right");
                             }
 
                         }
-                        if (this.velocity.X <= 0 & this.IsTouchingRight(sprite))
+                        if (this.velocity.X < 0 & this.IsTouchingRight(sprite))
                         {
                             this.velocity.X = 0;
                             this.position.X = sprite.CollisonBox.Right;
@@ -143,17 +144,17 @@ namespace platformer.Scripts.PlayerClasses
                             }
 
                         }
-                        if (this.velocity.Y >= 0 && this.IsTouchingTop(sprite))
+                        if (this.velocity.Y > 0 && this.IsTouchingTop(sprite))
                         {
                             this.velocity.Y = 0;
-                            this.position.Y = sprite.CollisonBox.Top - this.collisionBoxSize.Y;
+                            this.position.Y = sprite.CollisonBox.Top - this.collisionBoxHeight;
                             if (Game1.Debugging)
                             {
                                 Debug.WriteLine("colluided down");
                             }
 
                         }
-                        if (this.velocity.Y <= 0 && this.IsTouchingBottom(sprite))
+                        if (this.velocity.Y < 0 && this.IsTouchingBottom(sprite))
                         {
                             this.velocity.Y = 0;
                             this.position.Y = sprite.CollisonBox.Bottom;

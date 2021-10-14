@@ -7,6 +7,7 @@ using platformer.Scripts.PlayerClasses;
 using platformer.Scripts.InputWrapperClass;
 using System.Diagnostics;
 using fpsCounter;
+using System;
 
 
 namespace platformer
@@ -25,7 +26,7 @@ namespace platformer
         private List<CollisionSprite> _collisionSprites;
         private Rectangle rect = new Rectangle(0, 0, 1920, 1080);
         private SimpleFps fps = new SimpleFps();
-        public static bool Debugging = true;
+        public static bool Debugging = false;
 
         public Game1()
         {
@@ -53,17 +54,17 @@ namespace platformer
 
             _players = new List<Player>()
             {
-                new Player(test, new Vector2(4, 4)) {input = new InputWapper() {Up = Keys.W, Down = Keys.S, Right = Keys.D, Left = Keys.A, Toggle = Keys.Enter}, position = new Vector2(100, 50), speed = 13, color = new Color(255, 0, 0), isCollsionActive = true}
+                new Player(test, 4, 4) {input = new InputWapper() {Up = Keys.W, Down = Keys.S, Right = Keys.D, Left = Keys.A, Toggle = Keys.Enter}, position = new Vector2(100, 50), speed = 13, color = new Color(255, 0, 0), isCollsionActive = true}
                  
             };
 
             _collisionSprites = new List<CollisionSprite>()
             {
-                new CollisionSprite(box, new Vector2(8, 8))
+                new CollisionSprite(box, 64, 8)
                 {
                     isCollsionActive = true,
                     position = new Vector2(100, 100),
- 
+                    scale = new Vector2(8, 1)
                     
                 }
             };
@@ -77,6 +78,7 @@ namespace platformer
         {
 
 
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -88,6 +90,7 @@ namespace platformer
               
             }
 
+       
             
             base.Update(gameTime);
         }

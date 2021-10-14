@@ -9,17 +9,18 @@ namespace platformer.Scripts.SpriteClasses
     public class CollisionSprite: Sprite
     {
         public bool isCollsionActive = false;
-
+        protected int collisionBoxWidth, collisionBoxHeight;
         public Vector2 velocity;
-        protected Vector2 collisionBoxSize;
-        public Rectangle CollisonBox { get { return new Rectangle((int)position.X, (int)position.Y,  (int)collisionBoxSize.X, (int)(collisionBoxSize.Y)); } }
-        public CollisionSprite(Texture2D _texture, Vector2 _collisionBoxSize)
+        
+        public Rectangle CollisonBox { get { return new Rectangle((int)position.X, (int)position.Y,  collisionBoxWidth, collisionBoxHeight); } }
+        public CollisionSprite(Texture2D _texture, int _collisionBoxWidth, int _collisionBoxHeight)
         {
             
             texture = _texture;
             origin = scale / 2;
             rectangle = new Rectangle(0, 0, texture.Width, texture.Height);
-            collisionBoxSize = _collisionBoxSize;
+            collisionBoxWidth = _collisionBoxWidth;
+            collisionBoxHeight = _collisionBoxHeight;
             velocity = Vector2.Zero;
         }
 
