@@ -28,6 +28,9 @@ namespace platformer
         private SimpleFps fps = new SimpleFps();
         public static bool Debugging = true;
         private SpriteFont font;
+        private KeyboardState _currentKey;
+        private KeyboardState _previousKey;
+        private bool _showCollisionBox = false;
 
         public Game1()
         {
@@ -56,22 +59,39 @@ namespace platformer
 
             _players = new List<Player>()
             {
-                new Player(test, 4, 4) {input = new InputWapper() {Up = Keys.W, Down = Keys.S, Right = Keys.D, Left = Keys.A, Toggle = Keys.Enter}, position = new Vector2(100, 50), speed = 50, color = new Color(255, 0, 0), isCollsionActive = true, scale = new Vector2(1, 1)}
+                new Player(test, 4, 4, GraphicsDevice) {input = new InputWapper() 
+                {
+                    Up = Keys.W, Down = Keys.S, Right = Keys.D, Left = Keys.A, Toggle = Keys.Enter},
+                    position = new Vector2(100, 50), speed = 50, color = new Color(255, 0, 0), scale = new Vector2(1, 1) 
+                }
                  
             };
 
             _collisionSprites = new List<CollisionSprite>();
-            for (int i = 0; i < 48; i++)
+            for (int j = 0; j < 3; j++)
             {
-                _collisionSprites.Add(
-                new CollisionSprite(box, 8, 8)
+                for (int i = 0; i < 48; i++)
                 {
-                    isCollsionActive = true,
-                    position = new Vector2(0 + i * 8, 100),
-                    scale = new Vector2(1, 1)
+                    _collisionSprites.Add(
+                    new CollisionSprite(box, 8, 8, GraphicsDevice)
+                    {
+                        isCollsionActive = true,
+                        position = new Vector2(0 + i * 8, 100 + j * 8),
+                        scale = new Vector2(1, 1)
 
-                });
+                    });
+                }
             }
+
+            _collisionSprites.Add(
+                   new CollisionSprite(box, 8, 8, GraphicsDevice)
+                   {
+                       isCollsionActive = true,
+                       position = new Vector2(100, 92),
+                       scale = new Vector2(1, 1)
+
+                   });
+
 
             _sprites = new List<Sprite>();
            
@@ -85,6 +105,12 @@ namespace platformer
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            _previousKey = _currentKey;
+            _currentKey = Keyboard.GetState();
+
+            if (_currentKey.IsKeyUp(Keys.F1) && _previousKey.IsKeyDown(Keys.F1))
+                _showCollisionBox = !_showCollisionBox;
 
             deltaTime = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
 
@@ -115,11 +141,13 @@ namespace platformer
             foreach (var collisionSprite in _collisionSprites)
             {
                 collisionSprite.Draw(spriteBatch, _sprites);
+                collisionSprite.showCollisionBox = _showCollisionBox;
             }
 
             foreach (var player in _players)
             {
                 player.Draw(spriteBatch, _sprites);
+                player.showCollisionBox = _showCollisionBox;
 
             }
 

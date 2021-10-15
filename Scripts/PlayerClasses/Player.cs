@@ -17,19 +17,14 @@ namespace platformer.Scripts.PlayerClasses
         public float speed = 1;
         bool pressedThisFrame = false;
         private Vector2 gravity = new Vector2(0, 1);
-        public float gravityScale = 5;
+        public float gravityScale = 3;
         public bool ignoreGravity = false;
         private bool isGrounded = false;
         public float jumpForce = 1.5f;
 
-        public Player(Texture2D _texture, int _collisionBoxWidth, int _collisionBoxHeight)
+        public Player(Texture2D _texture, int _collisionBoxWidth, int _collisionBoxHeight, GraphicsDevice graphicsDevice) : base(_texture, _collisionBoxWidth, _collisionBoxHeight, graphicsDevice)
         {
-            texture = _texture;
-            origin = scale / 2;
-            rectangle = new Rectangle(0, 0, texture.Width, texture.Height);
-            collisionBoxWidth = _collisionBoxWidth;
-            collisionBoxHeight = _collisionBoxHeight;
-            velocity = Vector2.Zero;
+            
         }
 
         public override void Update(GameTime gameTime, List<Sprite> sprites, List<CollisionSprite> collisionSprites)
