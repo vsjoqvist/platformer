@@ -39,3 +39,4 @@ C:\Users\hakan\source\repos\platformer\bin\Debug\netcoreapp3.1\Content\target.xn
 C:\Users\hakan\source\repos\platformer\bin\Debug\netcoreapp3.1\Content\box.xnb
 C:\Users\hakan\source\repos\platformer\bin\Debug\netcoreapp3.1\Content\Sprite-0001.xnb
 C:\Users\hakan\source\repos\platformer\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\hakan\source\repos\platformer\bin\Debug\netcoreapp3.1\Content\File.xnb

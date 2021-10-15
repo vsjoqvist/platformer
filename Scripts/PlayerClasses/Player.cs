@@ -17,8 +17,10 @@ namespace platformer.Scripts.PlayerClasses
         public float speed = 1;
         bool pressedThisFrame = false;
         private Vector2 gravity = new Vector2(0, 1);
-        public float gravityScale = 3;
+        public float gravityScale = 5;
         public bool ignoreGravity = false;
+        private bool isGrounded = false;
+        public float jumpForce = 1.5f;
 
         public Player(Texture2D _texture, int _collisionBoxWidth, int _collisionBoxHeight)
         {
@@ -62,7 +64,18 @@ namespace platformer.Scripts.PlayerClasses
                 {
                     if (Keyboard.GetState().IsKeyDown(input.Up))
                     {
-                        velocity.Y = -speed * Game1.deltaTime;
+                        if (ignoreGravity)
+                        {
+                            velocity.Y = -speed * Game1.deltaTime;
+                        }
+                        else if (isGrounded)
+                        {
+
+                            velocity.Y = -jumpForce;
+                            isGrounded = false;
+                        }
+
+
                     }
 
                     if (Keyboard.GetState().IsKeyDown(input.Down))
@@ -129,6 +142,7 @@ namespace platformer.Scripts.PlayerClasses
                         {
                             this.velocity.X = 0;
                             this.intPosition.X = sprite.CollisonBox.Left - this.collisionBoxWidth;
+                            isGrounded = true;
                             if (Game1.Debugging)
                             {
                                 Debug.WriteLine("colluided right");
@@ -139,6 +153,7 @@ namespace platformer.Scripts.PlayerClasses
                         {
                             this.velocity.X = 0;
                             this.intPosition.X = sprite.CollisonBox.Right;
+                            isGrounded = true;
                             if (Game1.Debugging)
                             {
                                 Debug.WriteLine("colluided left");
@@ -149,6 +164,7 @@ namespace platformer.Scripts.PlayerClasses
                         {
                             this.velocity.Y = 0;
                             this.intPosition.Y = sprite.CollisonBox.Top - this.collisionBoxHeight;
+                            isGrounded = true;
                             if (Game1.Debugging)
                             {
                                 Debug.WriteLine("colluided down");

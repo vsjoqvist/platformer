@@ -27,7 +27,6 @@ namespace fpsCounter
             if (elapsed > msgFrequency)
             {
                 msg = " Fps: " + (frames / elapsed).ToString() + "\n Elapsed time: " + elapsed.ToString() + "\n Updates: " + updates.ToString() + "\n Frames: " + frames.ToString();
-                Debug.WriteLine(msg);
                 elapsed = 0;
                 frames = 0;
                 updates = 0;
