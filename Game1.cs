@@ -63,7 +63,7 @@ namespace platformer
                 new CollisionSprite(box, 8, 8)
                 {
                     isCollsionActive = true,
-                    position = new Vector2(160, 100),
+                    position = new Vector2(100, 100),
                     scale = new Vector2(1, 1)
                     
                 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using MonoGame.Extended;
 
 
 namespace platformer.Scripts.SpriteClasses
@@ -13,7 +12,7 @@ namespace platformer.Scripts.SpriteClasses
         public bool isCollsionActive = false;
         protected int collisionBoxWidth, collisionBoxHeight;
         public Vector2 velocity;
-        public RectangleF CollisonBox { get { return new RectangleF(position.X, position.Y,  collisionBoxWidth, collisionBoxHeight); } }
+        public Rectangle CollisonBox { get { return new Rectangle((int)intPosition.X, (int)intPosition.Y,  collisionBoxWidth, collisionBoxHeight); } }
         public CollisionSprite(Texture2D _texture, int _collisionBoxWidth, int _collisionBoxHeight)
         {
             
