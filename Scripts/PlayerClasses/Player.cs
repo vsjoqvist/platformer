@@ -8,6 +8,7 @@ using platformer.Scripts.InputWrapperClass;
 using System.Diagnostics;
 using platformer.Scripts.SpriteClasses;
 
+
 namespace platformer.Scripts.PlayerClasses
 {
     public class Player : CollisionSprite
@@ -104,7 +105,7 @@ namespace platformer.Scripts.PlayerClasses
                             }
 
                             pressedThisFrame = true;
-                            Debug.WriteLine(isCollsionActive);
+
                         }
                     }
                     else
@@ -127,7 +128,7 @@ namespace platformer.Scripts.PlayerClasses
                         if (this.velocity.X > 0 && this.IsTouchingLeft(sprite))
                         {
                             this.velocity.X = 0;
-                            this.position.X = sprite.CollisonBox.Left - this.collisionBoxWidth;
+                            this.intPosition.X = sprite.CollisonBox.Left - this.collisionBoxWidth;
                             if (Game1.Debugging)
                             {
                                 Debug.WriteLine("colluided right");
@@ -137,7 +138,7 @@ namespace platformer.Scripts.PlayerClasses
                         if (this.velocity.X < 0 & this.IsTouchingRight(sprite))
                         {
                             this.velocity.X = 0;
-                            this.position.X = sprite.CollisonBox.Right;
+                            this.intPosition.X = sprite.CollisonBox.Right;
                             if (Game1.Debugging)
                             {
                                 Debug.WriteLine("colluided left");
@@ -147,7 +148,7 @@ namespace platformer.Scripts.PlayerClasses
                         if (this.velocity.Y > 0 && this.IsTouchingTop(sprite))
                         {
                             this.velocity.Y = 0;
-                            this.position.Y = sprite.CollisonBox.Top - this.collisionBoxHeight;
+                            this.intPosition.Y = sprite.CollisonBox.Top - this.collisionBoxHeight;
                             if (Game1.Debugging)
                             {
                                 Debug.WriteLine("colluided down");
@@ -157,7 +158,7 @@ namespace platformer.Scripts.PlayerClasses
                         if (this.velocity.Y < 0 && this.IsTouchingBottom(sprite))
                         {
                             this.velocity.Y = 0;
-                            this.position.Y = sprite.CollisonBox.Bottom;
+                            this.intPosition.Y = sprite.CollisonBox.Bottom;
                             if (Game1.Debugging)
                             {
                                 Debug.WriteLine("colluided up");

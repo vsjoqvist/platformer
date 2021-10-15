@@ -24,14 +24,20 @@ namespace platformer.Scripts.SpriteClasses
 
         public virtual void Update(GameTime gameTime, List<Sprite> sprites, List<CollisionSprite> collisionSprites)
         {
-            
+
         }
 
       
 
         public virtual void Draw(SpriteBatch spriteBatch, List<Sprite> sprites)
         {
-            spriteBatch.Draw(texture, position, rectangle, color, rotation, origin, scale, SpriteEffects.None, spriteLayer);
+            newIntPosition();
+            spriteBatch.Draw(texture, intPosition, rectangle, color, rotation, origin, scale, SpriteEffects.None, spriteLayer);
+        }
+
+        protected void newIntPosition()
+        {
+            intPosition = new Vector2((int)MathF.Round(position.X), (int)MathF.Round(position.Y));
         }
 
 

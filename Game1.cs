@@ -26,7 +26,7 @@ namespace platformer
         private List<CollisionSprite> _collisionSprites;
         private Rectangle rect = new Rectangle(0, 0, 1920, 1080);
         private SimpleFps fps = new SimpleFps();
-        public static bool Debugging = false;
+        public static bool Debugging = true;
 
         public Game1()
         {
@@ -60,11 +60,11 @@ namespace platformer
 
             _collisionSprites = new List<CollisionSprite>()
             {
-                new CollisionSprite(box, 64, 8)
+                new CollisionSprite(box, 8, 8)
                 {
                     isCollsionActive = true,
-                    position = new Vector2(100, 100),
-                    scale = new Vector2(8, 1)
+                    position = new Vector2(160, 100),
+                    scale = new Vector2(1, 1)
                     
                 }
             };
