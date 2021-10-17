@@ -38,7 +38,7 @@ namespace platformer.Scripts.SpriteClasses
             if (showCollisionBox)
             {
                 if (_rectangleTexture != null)
-                    spriteBatch.Draw(_rectangleTexture, new Vector2(intPosition.X, intPosition.Y), Color.Green);
+                    spriteBatch.Draw(_rectangleTexture, position, Color.Green);
             }
         }
 

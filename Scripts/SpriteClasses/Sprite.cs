@@ -10,7 +10,7 @@ namespace platformer.Scripts.SpriteClasses
     public class Sprite
     {
         public Vector2 position = Vector2.Zero;
-        public Vector2 intPosition = Vector2.Zero;
+        
         public Vector2 scale = new Vector2(1, 1);
         protected Vector2 origin;
         public float rotation = 0;
@@ -31,14 +31,11 @@ namespace platformer.Scripts.SpriteClasses
 
         public virtual void Draw(SpriteBatch spriteBatch, List<Sprite> sprites)
         {
-            newIntPosition();
-            spriteBatch.Draw(texture, intPosition, rectangle, color, rotation, origin, scale, SpriteEffects.None, spriteLayer);
+           
+            spriteBatch.Draw(texture, position, rectangle, color, rotation, origin, scale, SpriteEffects.None, spriteLayer);
         }
 
-        protected void newIntPosition()
-        {
-            intPosition = new Vector2((int)MathF.Round(position.X), (int)MathF.Round(position.Y));
-        }
+        
 
 
 
