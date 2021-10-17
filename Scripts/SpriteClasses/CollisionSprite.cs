@@ -38,7 +38,7 @@ namespace platformer.Scripts.SpriteClasses
             if (showCollisionBox)
             {
                 if (_rectangleTexture != null)
-                    spriteBatch.Draw(_rectangleTexture, position, Color.Green);
+                    spriteBatch.Draw(_rectangleTexture, collisonBox.pos, Color.Green);
             }
         }
 
@@ -48,9 +48,9 @@ namespace platformer.Scripts.SpriteClasses
         {
             var colours = new List<Color>();
 
-            for (int y = 0; y < collisionBoxHeight; y++)
+            for (int y = 0; y < collisonBox.half.Y * 2; y++)
             {
-                for (int x = 0; x < collisionBoxWidth; x++)
+                for (int x = 0; x < collisonBox.half.X * 2; x++)
                 {
                     if (y == 0 || // On the top
                         x == 0 || // On the left
