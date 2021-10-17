@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using platformer.Scripts.SpriteClasses;
 using platformer.Scripts.PlayerClasses;
-using platformer.Scripts.InputWrapperClass;
+using InputWrapperClass;
 using System.Diagnostics;
 using fpsCounter;
 using System;
@@ -57,12 +57,17 @@ namespace platformer
             var box = Content.Load<Texture2D>("Sprite-0001");
             font = Content.Load<SpriteFont>("File");
 
+            Vector2 ve = new Vector2(11, -11);
+            ve.Normalize();
+            Debug.WriteLine(ve.X.ToString() + " " + ve.Y.ToString());
+
             _players = new List<Player>()
             {
-                new Player(test, 4, 4, GraphicsDevice) {input = new InputWapper() 
+                new Player(test, 4, 4, GraphicsDevice) {input = new InputWrapper()
                 {
                     Up = Keys.W, Down = Keys.S, Right = Keys.D, Left = Keys.A, Toggle = Keys.Enter},
-                    position = new Vector2(100, 50), speed = 50, color = new Color(255, 0, 0), scale = new Vector2(1, 1) 
+                    position = new Vector2(100, 50), speed = 25, color = new Color(255, 0, 0), scale = new Vector2(1, 1),
+                    isCollsionActive = true, ignoreGravity = true
                 }
                  
             };
@@ -87,7 +92,7 @@ namespace platformer
                    new CollisionSprite(box, 8, 8, GraphicsDevice)
                    {
                        isCollsionActive = true,
-                       position = new Vector2(100, 92),
+                       position = new Vector2(100, 80),
                        scale = new Vector2(1, 1)
 
                    });

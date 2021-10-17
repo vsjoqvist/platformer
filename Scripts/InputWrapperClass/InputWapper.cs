@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
 
-namespace platformer.Scripts.InputWrapperClass
+namespace InputWrapperClass
 {
-    public class InputWapper
+    public class InputWrapper
     {
         public Keys Left { get; set; }
         public Keys Right { get; set; }

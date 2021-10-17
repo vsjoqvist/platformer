@@ -4,16 +4,17 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using platformer.Scripts.InputWrapperClass;
+using InputWrapperClass;
 using System.Diagnostics;
 using platformer.Scripts.SpriteClasses;
+using Collisions;
 
 
 namespace platformer.Scripts.PlayerClasses
 {
     public class Player : CollisionSprite
     {
-        public InputWapper input;
+        public InputWrapper input;
         public float speed = 1;
         bool pressedThisFrame = false;
         private Vector2 gravity = new Vector2(0, 1);
@@ -39,8 +40,18 @@ namespace platformer.Scripts.PlayerClasses
                
             }
             
+            if (isCollsionActive)
+            {
+                foreach (var c in collisionSprites)
+                {
+                    if (c.isCollsionActive)
+                    {
+                        collide(c.collisonBox);
+                    }
+                }
+            }
+            
 
-            collide();
             position += velocity;
             velocity.X = 0;
             if (ignoreGravity)
@@ -124,63 +135,46 @@ namespace platformer.Scripts.PlayerClasses
                 }
             }
 
-            void collide()
+            void collide(AABB otherBox)
             {
-                if (isCollsionActive)
+                bool collided = false;
+
+                Sweep _sweep = this.collisonBox.sweepAABB(otherBox, velocity);
+
+                if (_sweep.hit != null)
                 {
-                    foreach (var sprite in collisionSprites)
+
+                    if (_sweep.hit.normal.X == -1 || _sweep.hit.normal.X == 1)
                     {
-                        if (sprite == this)
-                            continue;
+                        //velocity.X = 0;
+                        //position += new Vector2(0, _sweep.hit.delta.Y + collisonBox.half.Y);
+                        //Debug.WriteLine(_sweep.hit.pos.X.ToString() + " " + _sweep.hit.pos.Y.ToString());
+                        //isGrounded = true;
+                        //collided = true;
+                        //Debug.WriteLine("collided left or right");
+                    }
 
-                        if (this.velocity.X > 0 && this.IsTouchingLeft(sprite))
-                        {
-                            this.velocity.X = 0;
-                            this.intPosition.X = sprite.CollisonBox.Left - this.collisionBoxWidth;
-                            isGrounded = true;
-                            if (Game1.Debugging)
-                            {
-                                Debug.WriteLine("colluided right");
-                            }
+                    if (_sweep.hit.normal.Y == -1 || _sweep.hit.normal.Y == 1)
+                    {
+                        //velocity.Y = 0;
+                        //position += new Vector2(0, _sweep.hit.delta.Y + collisonBox.half.Y);
+                        //isGrounded = true;
+                        //collided = true;
 
-                        }
-                        if (this.velocity.X < 0 & this.IsTouchingRight(sprite))
-                        {
-                            this.velocity.X = 0;
-                            this.intPosition.X = sprite.CollisonBox.Right;
-                            isGrounded = true;
-                            if (Game1.Debugging)
-                            {
-                                Debug.WriteLine("colluided left");
-                            }
-
-                        }
-                        if (this.velocity.Y > 0 && this.IsTouchingTop(sprite))
-                        {
-                            this.velocity.Y = 0;
-                            this.intPosition.Y = sprite.CollisonBox.Top - this.collisionBoxHeight;
-                            isGrounded = true;
-                            if (Game1.Debugging)
-                            {
-                                Debug.WriteLine("colluided down");
-                            }
-
-                        }
-                        if (this.velocity.Y < 0 && this.IsTouchingBottom(sprite))
-                        {
-                            this.velocity.Y = 0;
-                            this.intPosition.Y = sprite.CollisonBox.Bottom;
-                            if (Game1.Debugging)
-                            {
-                                Debug.WriteLine("colluided up");
-                            }
-
-                        }
-
-
-
+                        //Debug.WriteLine(_sweep.hit.delta.X.ToString() + " " + _sweep.hit.delta.Y.ToString());
+                        //Debug.WriteLine("collided uo or down");
+                    }
+                    Debug.WriteLine(_sweep.hit.delta.X.ToString() + " " + _sweep.hit.delta.Y.ToString());
+                }
+                else
+                {
+                    if (!collided)
+                    {
+                        isGrounded = false;
                     }
                 }
+                
+                
             }
 
 
