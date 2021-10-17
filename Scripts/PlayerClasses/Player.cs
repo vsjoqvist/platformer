@@ -146,7 +146,7 @@ namespace platformer.Scripts.PlayerClasses
 
                     if (_sweep.hit.normal.X == -1 || _sweep.hit.normal.X == 1)
                     {
-                        //velocity.X = 0;
+                        velocity.X = 0;
                         //position += new Vector2(0, _sweep.hit.delta.Y + collisonBox.half.Y);
                         //Debug.WriteLine(_sweep.hit.pos.X.ToString() + " " + _sweep.hit.pos.Y.ToString());
                         //isGrounded = true;
@@ -156,7 +156,7 @@ namespace platformer.Scripts.PlayerClasses
 
                     if (_sweep.hit.normal.Y == -1 || _sweep.hit.normal.Y == 1)
                     {
-                        //velocity.Y = 0;
+                        velocity.Y = 0;
                         //position += new Vector2(0, _sweep.hit.delta.Y + collisonBox.half.Y);
                         //isGrounded = true;
                         //collided = true;
@@ -165,6 +165,7 @@ namespace platformer.Scripts.PlayerClasses
                         //Debug.WriteLine("collided uo or down");
                     }
                     Debug.WriteLine(_sweep.hit.delta.X.ToString() + " " + _sweep.hit.delta.Y.ToString());
+                    position += _sweep.hit.delta;
                 }
                 else
                 {

@@ -67,7 +67,7 @@ namespace platformer
                 {
                     Up = Keys.W, Down = Keys.S, Right = Keys.D, Left = Keys.A, Toggle = Keys.Enter},
                     position = new Vector2(100, 50), speed = 25, color = new Color(255, 0, 0), scale = new Vector2(1, 1),
-                    isCollsionActive = true, ignoreGravity = true
+                    isCollsionActive = true, ignoreGravity = false
                 }
                  
             };
