@@ -18,13 +18,10 @@ namespace platformer.Scripts.SpriteClasses
 
         protected Texture2D _rectangleTexture;
         public bool showCollisionBox = false;
-        public AABB collisonBox { get { return new AABB(new Vector2(position.X, position.Y),  new Vector2(collisionBoxWidth / 2, collisionBoxHeight / 2)); } }
-        public CollisionSprite(Texture2D _texture, int _collisionBoxWidth, int _collisionBoxHeight, GraphicsDevice graphicsDevice)
+        public AABB collisonBox { get { return new AABB(new Vector2(position.X - origin.X + collisionBoxWidth / 2, position.Y - origin.Y + collisionBoxHeight / 2), new Vector2(collisionBoxWidth / 2, collisionBoxHeight / 2)); } }
+        public CollisionSprite(Texture2D _texture, int _collisionBoxWidth, int _collisionBoxHeight, GraphicsDevice graphicsDevice) : base(_texture)
         {
-            
-            texture = _texture;
-            origin = scale / 2;
-            rectangle = new Rectangle(0, 0, texture.Width, texture.Height);
+           
             collisionBoxWidth = _collisionBoxWidth;
             collisionBoxHeight = _collisionBoxHeight;
             velocity = Vector2.Zero;
@@ -38,7 +35,11 @@ namespace platformer.Scripts.SpriteClasses
             if (showCollisionBox)
             {
                 if (_rectangleTexture != null)
-                    spriteBatch.Draw(_rectangleTexture, collisonBox.pos, Color.Green);
+                {
+                    spriteBatch.Draw(_rectangleTexture, position - origin, Color.Green);
+                    
+                }
+                    
             }
         }
 

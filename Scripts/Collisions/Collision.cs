@@ -10,7 +10,7 @@ namespace Collisions
     {
         public static float EPSILON = 0.00000001f;
     }
-
+    //https://noonat.github.io/intersect/#aabb-vs-swept-aabb 
     public class Hit
     {
         public AABB collider;

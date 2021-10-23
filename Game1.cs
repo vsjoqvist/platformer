@@ -57,16 +57,13 @@ namespace platformer
             var box = Content.Load<Texture2D>("Sprite-0001");
             font = Content.Load<SpriteFont>("File");
 
-            Vector2 ve = new Vector2(11, -11);
-            ve.Normalize();
-            Debug.WriteLine(ve.X.ToString() + " " + ve.Y.ToString());
 
             _players = new List<Player>()
             {
                 new Player(test, 4, 4, GraphicsDevice) {input = new InputWrapper()
                 {
                     Up = Keys.W, Down = Keys.S, Right = Keys.D, Left = Keys.A, Toggle = Keys.Enter},
-                    position = new Vector2(100, 50), speed = 25, color = new Color(255, 0, 0), scale = new Vector2(1, 1),
+                    position = new Vector2(100, 100), speed = 25, color = new Color(255, 0, 0),
                     isCollsionActive = true, ignoreGravity = false
                 }
                  
@@ -92,7 +89,7 @@ namespace platformer
                    new CollisionSprite(box, 8, 8, GraphicsDevice)
                    {
                        isCollsionActive = true,
-                       position = new Vector2(100, 80),
+                       position = new Vector2(100, 92),
                        scale = new Vector2(1, 1)
 
                    });

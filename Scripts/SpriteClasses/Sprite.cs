@@ -43,7 +43,7 @@ namespace platformer.Scripts.SpriteClasses
         public Sprite(Texture2D _texture)
         {
             texture = _texture;
-            origin = scale / 2;
+            origin = new Vector2(texture.Width / 2, texture.Height / 2);
             rectangle = new Rectangle(0, 0, texture.Width, texture.Height);
         }
 

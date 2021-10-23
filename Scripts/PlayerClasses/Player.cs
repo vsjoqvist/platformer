@@ -30,9 +30,9 @@ namespace platformer.Scripts.PlayerClasses
 
         public override void Update(GameTime gameTime, List<Sprite> sprites, List<CollisionSprite> collisionSprites)
         {
+            bool collided = false;
             GetNewVelocity();
-
-            
+            var velocitaaay = velocity;
             if (!ignoreGravity)
             {
                 velocity += (gravity * gravityScale) * Game1.deltaTime;
@@ -48,6 +48,15 @@ namespace platformer.Scripts.PlayerClasses
                     {
                         collide(c.collisonBox);
                     }
+                }
+
+                if (collided)
+                {
+                    isGrounded = true;
+                } 
+                else
+                {
+                    isGrounded = false;
                 }
             }
             
@@ -68,24 +77,26 @@ namespace platformer.Scripts.PlayerClasses
                 }
                 else
                 {
+                    #region input
                     if (Keyboard.GetState().IsKeyDown(input.Up))
                     {
                         if (ignoreGravity)
                         {
+ 
                             velocity.Y = -speed * Game1.deltaTime;
                         }
                         else if (isGrounded)
                         {
-
                             velocity.Y = -jumpForce;
-                            isGrounded = false;
                         }
 
+                        
 
                     }
 
                     if (Keyboard.GetState().IsKeyDown(input.Down))
                     {
+                        if (ignoreGravity)
                         velocity.Y = speed * Game1.deltaTime;
                     }
 
@@ -131,49 +142,34 @@ namespace platformer.Scripts.PlayerClasses
                     {
                         pressedThisFrame = false;
                     }
+                    #endregion
 
                 }
             }
 
             void collide(AABB otherBox)
             {
-                bool collided = false;
-
                 Sweep _sweep = this.collisonBox.sweepAABB(otherBox, velocity);
 
                 if (_sweep.hit != null)
                 {
-
+                    collided = true;
+                    
                     if (_sweep.hit.normal.X == -1 || _sweep.hit.normal.X == 1)
                     {
                         velocity.X = 0;
-                        //position += new Vector2(0, _sweep.hit.delta.Y + collisonBox.half.Y);
-                        //Debug.WriteLine(_sweep.hit.pos.X.ToString() + " " + _sweep.hit.pos.Y.ToString());
-                        //isGrounded = true;
-                        //collided = true;
-                        //Debug.WriteLine("collided left or right");
+
                     }
 
                     if (_sweep.hit.normal.Y == -1 || _sweep.hit.normal.Y == 1)
                     {
                         velocity.Y = 0;
-                        //position += new Vector2(0, _sweep.hit.delta.Y + collisonBox.half.Y);
-                        //isGrounded = true;
-                        //collided = true;
-
-                        //Debug.WriteLine(_sweep.hit.delta.X.ToString() + " " + _sweep.hit.delta.Y.ToString());
-                        //Debug.WriteLine("collided uo or down");
+                        
+ 
                     }
-                    Debug.WriteLine(_sweep.hit.delta.X.ToString() + " " + _sweep.hit.delta.Y.ToString());
                     position += _sweep.hit.delta;
                 }
-                else
-                {
-                    if (!collided)
-                    {
-                        isGrounded = false;
-                    }
-                }
+                
                 
                 
             }
